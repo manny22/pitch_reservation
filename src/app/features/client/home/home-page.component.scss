@@ -1,0 +1,158 @@
+.hero {
+    background: linear-gradient(135deg, #0f1f2e 0%, #1b5e20 100%);
+    color: #fff;
+    padding: 64px 16px;
+}
+
+.hero-content {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+}
+
+.hero h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    line-height: 1.1;
+    margin: 0 0 12px;
+    max-width: 720px;
+
+    span {
+        color: #ffd54f;
+    }
+}
+
+.hero p {
+    max-width: 560px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 24px;
+}
+
+.search {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 640px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px;
+    border-radius: 12px;
+    color: #000;
+}
+
+.search-field {
+    width: 100%;
+}
+
+.search-btn {
+    height: 48px;
+}
+
+@media (min-width: 600px) {
+    .search {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .search-field {
+        flex: 1;
+        margin: 0;
+    }
+}
+
+.quick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.quick a {
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 48px auto;
+    padding: 0 16px;
+}
+
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    h2 {
+        margin: 0;
+        font-size: 1.4rem;
+    }
+}
+
+.grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.promo-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.promo-card {
+    border-left: 4px solid #ff5722;
+}
+
+.promo-tag {
+    display: inline-block;
+    background: #ff5722;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+}
+
+.how h2 {
+    margin-bottom: 16px;
+}
+
+.steps {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.step {
+    background: #f5f8fa;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+
+    mat-icon {
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+        color: #1b5e20;
+    }
+
+    h4 {
+        margin: 8px 0 4px;
+    }
+
+    p {
+        margin: 0;
+        color: rgba(0, 0, 0, 0.65);
+    }
+}

@@ -1,0 +1,103 @@
+<section class="hero">
+    <div class="hero-content">
+        <span class="eyebrow">Cartagena · LatAm</span>
+        <h1>Reserva tu cancha en <span>1 minuto</span>, no en 3 días.</h1>
+        <p>
+            La Red centraliza disponibilidad, precios y pagos de canchas deportivas. Encuentra,
+            reserva y paga en segundos.
+        </p>
+
+        <form class="search" [formGroup]="searchForm" (ngSubmit)="search()">
+            <mat-form-field appearance="outline" class="search-field">
+                <mat-icon matPrefix>place</mat-icon>
+                <mat-label>Ciudad o zona</mat-label>
+                <input matInput formControlName="city" placeholder="Ej: Cartagena" />
+            </mat-form-field>
+            <button mat-flat-button color="primary" class="search-btn" type="submit">
+                <mat-icon>search</mat-icon> Buscar canchas
+            </button>
+        </form>
+
+        <div class="quick">
+            <a mat-stroked-button color="primary" [routerLink]="['/canchas']" [queryParams]="{ type: '5' }">
+                Fútbol 5
+            </a>
+            <a mat-stroked-button color="primary" [routerLink]="['/canchas']" [queryParams]="{ type: '7' }">
+                Fútbol 7
+            </a>
+            <a mat-stroked-button color="primary" [routerLink]="['/canchas']" [queryParams]="{ type: '11' }">
+                Fútbol 11
+            </a>
+            <a mat-stroked-button color="accent" [routerLink]="['/canchas']" [queryParams]="{ promo: '1' }">
+                Con promociones
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <header class="section-head">
+        <h2>Canchas destacadas</h2>
+        <a mat-button routerLink="/canchas">Ver todas <mat-icon>chevron_right</mat-icon></a>
+    </header>
+
+    @if (loading()) {
+    <app-loading />
+    } @else {
+    <div class="grid">
+        @for (court of featured(); track court.id) {
+        <app-court-card [court]="court" />
+        }
+    </div>
+    }
+</section>
+
+@if (promotions().length) {
+<section class="container promos">
+    <header class="section-head">
+        <h2>Promociones activas</h2>
+    </header>
+    <div class="promo-grid">
+        @for (promo of promotions(); track promo.id) {
+        <mat-card appearance="outlined" class="promo-card">
+            <mat-card-content>
+                <span class="promo-tag">
+                    {{ promo.type === 'percentage' ? promo.value + '% OFF' : (promo.value | currencyCop) + ' OFF' }}
+                </span>
+                <h3>{{ promo.title }}</h3>
+                <p>{{ promo.description }}</p>
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <a mat-button color="primary" [routerLink]="['/canchas', promo.courtId]">Ver cancha</a>
+            </mat-card-actions>
+        </mat-card>
+        }
+    </div>
+</section>
+}
+
+<section class="container how">
+    <h2>¿Cómo funciona?</h2>
+    <div class="steps">
+        <div class="step">
+            <mat-icon>search</mat-icon>
+            <h4>1. Busca</h4>
+            <p>Filtra por ubicación, precio, horario y tipo.</p>
+        </div>
+        <div class="step">
+            <mat-icon>event_available</mat-icon>
+            <h4>2. Reserva</h4>
+            <p>Disponibilidad en tiempo real. Sin doble reserva.</p>
+        </div>
+        <div class="step">
+            <mat-icon>payments</mat-icon>
+            <h4>3. Paga</h4>
+            <p>Nequi, Daviplata o tarjeta. Confirmación inmediata.</p>
+        </div>
+        <div class="step">
+            <mat-icon>sports_soccer</mat-icon>
+            <h4>4. Juega</h4>
+            <p>Llegas a la cancha y disfrutas con tu equipo.</p>
+        </div>
+    </div>
+</section>

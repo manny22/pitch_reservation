@@ -1,0 +1,130 @@
+@if (loading()) {
+<app-loading />
+} @else if (notFound()) {
+<app-empty-state icon="sentiment_dissatisfied" title="Cancha no encontrada"
+    message="La cancha que buscas no existe o fue eliminada.">
+    <a mat-flat-button color="primary" routerLink="/canchas">Volver a buscar</a>
+</app-empty-state>
+} @else if (court(); as c) {
+<article class="detail">
+    <section class="gallery">
+        <div class="main-photo" [style.background-image]="'url(' + selectedPhoto() + ')'"></div>
+        @if (c.photos.length > 1) {
+        <div class="thumbs">
+            @for (photo of c.photos; track photo) {
+            <button type="button" class="thumb" [class.active]="photo === selectedPhoto()"
+                [style.background-image]="'url(' + photo + ')'" (click)="selectPhoto(photo)"
+                [attr.aria-label]="'Ver foto ' + ($index + 1)"></button>
+            }
+        </div>
+        }
+    </section>
+
+    <section class="info">
+        <header>
+            <h1>{{ c.name }}</h1>
+            <p class="address">
+                <mat-icon>place</mat-icon>{{ c.location.address }} · {{ c.location.zone }}, {{ c.location.city }}
+            </p>
+            <div class="rating-row">
+                <app-rating-stars [value]="c.averageRating" />
+                <small>({{ c.reviewsCount }} opiniones)</small>
+                <mat-chip>Fútbol {{ c.type }}</mat-chip>
+            </div>
+        </header>
+
+        <p class="desc">{{ c.description }}</p>
+
+        @if (amenitiesList().length) {
+        <h3>Servicios</h3>
+        <mat-chip-set>
+            @for (a of amenitiesList(); track a) {
+            <mat-chip>{{ a }}</mat-chip>
+            }
+        </mat-chip-set>
+        }
+
+        @if (promotion(); as p) {
+        <div class="promo-banner">
+            <mat-icon>local_offer</mat-icon>
+            <div>
+                <strong>{{ p.title }}</strong>
+                <p>{{ p.description }}</p>
+            </div>
+        </div>
+        }
+
+        <h3>Horarios disponibles hoy</h3>
+        <div class="slots">
+            @for (slot of slots(); track slot) {
+            <span class="slot">{{ slot }}</span>
+            }
+        </div>
+
+        <h3>Política de cancelación</h3>
+        <p class="policy">{{ c.cancellationPolicy }}</p>
+
+        <div class="map-placeholder" aria-label="Mapa de ubicación">
+            <mat-icon>map</mat-icon>
+            <span>Mapa interactivo (próximamente)</span>
+        </div>
+    </section>
+
+    <aside class="cta-card">
+        <span class="price">{{ c.pricePerHour | currencyCop }} <small>/ hora</small></span>
+        <button mat-flat-button color="primary" class="reserve-btn" (click)="reserve()" [disabled]="!c.available">
+            <mat-icon>event_available</mat-icon>
+            {{ c.available ? 'Reservar ahora' : 'No disponible' }}
+        </button>
+        <small class="cta-help">Pago en línea · Confirmación inmediata</small>
+    </aside>
+</article>
+
+<section class="reviews-section">
+    <h2>Opiniones</h2>
+
+    <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="review-form">
+        <mat-form-field appearance="outline">
+            <mat-label>Calificación</mat-label>
+            <mat-select formControlName="rating">
+                @for (n of [1, 2, 3, 4, 5]; track n) {
+                <mat-option [value]="n">{{ n }} ★</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="comment-field">
+            <mat-label>Tu comentario</mat-label>
+            <textarea matInput rows="3" formControlName="comment" maxlength="500"></textarea>
+            <mat-hint align="end">{{ reviewForm.controls.comment.value.length }}/500</mat-hint>
+            @if (reviewForm.controls.comment.hasError('minlength')) {
+            <mat-error>Mínimo 10 caracteres.</mat-error>
+            }
+            @if (reviewForm.controls.comment.hasError('required')) {
+            <mat-error>El comentario es requerido.</mat-error>
+            }
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit" [disabled]="reviewForm.invalid">
+            Publicar
+        </button>
+    </form>
+
+    @if (!reviews().length) {
+    <app-empty-state icon="rate_review" title="Sin opiniones" message="Sé el primero en calificar esta cancha." />
+    } @else {
+    <ul class="reviews-list">
+        @for (r of reviews(); track r.id) {
+        <li>
+            <div class="review-head">
+                <strong>{{ r.userName }}</strong>
+                <small>{{ r.createdAt | date: 'mediumDate' }}</small>
+            </div>
+            <app-rating-stars [value]="r.rating" [showValue]="false" />
+            <p>{{ r.comment }}</p>
+        </li>
+        }
+    </ul>
+    }
+</section>
+}

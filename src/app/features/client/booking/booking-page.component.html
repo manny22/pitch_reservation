@@ -1,0 +1,66 @@
+@if (loading()) {
+<app-loading />
+} @else if (court(); as c) {
+<div class="page" [formGroup]="form">
+    <section class="form-section">
+        <h1>Reservar {{ c.name }}</h1>
+        <p class="subtitle">{{ c.location.zone }} · {{ c.location.city }}</p>
+
+        <div class="grid">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date" [min]="today" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker" />
+                <mat-datepicker #picker />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Hora inicial</mat-label>
+                <mat-select formControlName="startTime">
+                    @for (s of slots(); track s) {
+                    <mat-option [value]="s">{{ s }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Duración (horas)</mat-label>
+                <mat-select formControlName="duration">
+                    @for (d of [1, 2, 3, 4]; track d) {
+                    <mat-option [value]="d">{{ d }} hora{{ d > 1 ? 's' : '' }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <h3>Política de cancelación</h3>
+        <p class="policy">{{ c.cancellationPolicy }}</p>
+    </section>
+
+    <aside class="summary">
+        <h2>Resumen</h2>
+        <ul>
+            <li><span>Cancha</span><strong>{{ c.name }}</strong></li>
+            <li><span>Precio por hora</span><strong>{{ c.pricePerHour | currencyCop }}</strong></li>
+            <li><span>Duración</span><strong>{{ form.controls.duration.value }} h</strong></li>
+            <li><span>Subtotal</span><strong>{{ totals().subtotal | currencyCop }}</strong></li>
+            @if (totals().discount > 0) {
+            <li class="discount">
+                <span>Descuento{{ promotion() ? ' (' + promotion()!.title + ')' : '' }}</span>
+                <strong>- {{ totals().discount | currencyCop }}</strong>
+            </li>
+            }
+        </ul>
+        <mat-divider />
+        <div class="total">
+            <span>Total</span>
+            <strong>{{ totals().total | currencyCop }}</strong>
+        </div>
+        <button mat-flat-button color="primary" class="confirm-btn" (click)="confirm()"
+            [disabled]="form.invalid || submitting()">
+            <mat-icon>lock</mat-icon> Confirmar y pagar
+        </button>
+        <small>Tu reserva se confirma al completar el pago.</small>
+    </aside>
+</div>
+}

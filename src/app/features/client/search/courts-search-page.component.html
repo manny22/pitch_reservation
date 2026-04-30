@@ -1,0 +1,73 @@
+<div class="page" [formGroup]="form">
+    <aside class="filters">
+        <h2>Filtros</h2>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Ciudad o zona</mat-label>
+            <input matInput formControlName="city" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Tipo de cancha</mat-label>
+            <mat-select formControlName="type">
+                <mat-option value="">Todas</mat-option>
+                <mat-option value="5">Fútbol 5</mat-option>
+                <mat-option value="7">Fútbol 7</mat-option>
+                <mat-option value="8">Fútbol 8</mat-option>
+                <mat-option value="11">Fútbol 11</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <label class="slider-label">
+            Precio máximo
+            <strong>{{ form.controls.maxPrice.value | number: '1.0-0' }} COP</strong>
+        </label>
+        <mat-slider min="20000" max="300000" step="10000" discrete>
+            <input matSliderThumb formControlName="maxPrice" />
+        </mat-slider>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Calificación mínima</mat-label>
+            <mat-select formControlName="minRating">
+                <mat-option [value]="0">Cualquiera</mat-option>
+                <mat-option [value]="3">3+</mat-option>
+                <mat-option [value]="4">4+</mat-option>
+                <mat-option [value]="4.5">4.5+</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="withPromotion">Solo con promociones</mat-checkbox>
+
+        <button mat-stroked-button type="button" (click)="reset()">
+            <mat-icon>refresh</mat-icon> Limpiar filtros
+        </button>
+    </aside>
+
+    <section class="results">
+        <header class="head">
+            <h1>Canchas disponibles</h1>
+            @if (!loading()) {
+            <span class="count">{{ courts().length }} resultados</span>
+            }
+        </header>
+
+        @if (loading()) {
+        <app-loading />
+        } @else if (error()) {
+        <app-empty-state icon="error_outline" title="No pudimos cargar las canchas" [message]="error()!">
+            <button mat-flat-button color="primary" (click)="reset()">Reintentar</button>
+        </app-empty-state>
+        } @else if (!courts().length) {
+        <app-empty-state icon="search_off" title="Sin resultados"
+            message="Ajusta los filtros para encontrar más canchas en tu zona.">
+            <button mat-flat-button color="primary" (click)="reset()">Limpiar filtros</button>
+        </app-empty-state>
+        } @else {
+        <div class="grid">
+            @for (court of courts(); track court.id) {
+            <app-court-card [court]="court" />
+            }
+        </div>
+        }
+    </section>
+</div>

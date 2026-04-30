@@ -1,0 +1,69 @@
+@if (loading()) {
+<app-loading />
+} @else if (booking(); as b) {
+<div class="page" [formGroup]="form">
+    <section class="methods">
+        <h1>Pago seguro</h1>
+        <p class="subtitle">Selecciona tu método preferido. La reserva se confirma al completar el pago.</p>
+
+        <mat-radio-group formControlName="method" class="radio-grid">
+            <label class="method-card">
+                <mat-radio-button value="nequi" />
+                <div>
+                    <strong>Nequi</strong>
+                    <small>Paga con tu app Nequi</small>
+                </div>
+                <mat-icon>smartphone</mat-icon>
+            </label>
+
+            <label class="method-card">
+                <mat-radio-button value="daviplata" />
+                <div>
+                    <strong>Daviplata</strong>
+                    <small>Paga con tu billetera Daviplata</small>
+                </div>
+                <mat-icon>account_balance_wallet</mat-icon>
+            </label>
+
+            <label class="method-card">
+                <mat-radio-button value="card" />
+                <div>
+                    <strong>Tarjeta de crédito o débito</strong>
+                    <small>Visa, Mastercard, Amex</small>
+                </div>
+                <mat-icon>credit_card</mat-icon>
+            </label>
+        </mat-radio-group>
+    </section>
+
+    <aside class="summary">
+        <h2>Resumen del pago</h2>
+        <ul>
+            <li><span>Cancha</span><strong>{{ b.courtName }}</strong></li>
+            <li><span>Fecha</span><strong>{{ b.date }}</strong></li>
+            <li><span>Hora</span><strong>{{ b.startTime }} - {{ b.endTime }}</strong></li>
+            <li><span>Duración</span><strong>{{ b.duration }} h</strong></li>
+            @if (b.discountAmount > 0) {
+            <li class="discount"><span>Descuento</span><strong>- {{ b.discountAmount | currencyCop }}</strong></li>
+            }
+        </ul>
+        <mat-divider />
+        <div class="total">
+            <span>Total a pagar</span>
+            <strong>{{ b.totalAmount | currencyCop }}</strong>
+        </div>
+        <button mat-flat-button color="primary" class="pay-btn" (click)="pay()" [disabled]="processing()">
+            @if (processing()) {
+            <mat-spinner diameter="20" />
+            <span>Procesando...</span>
+            } @else {
+            <ng-container>
+                <mat-icon>lock</mat-icon>
+                <span>Pagar ahora</span>
+            </ng-container>
+            }
+        </button>
+        <small class="ssl"><mat-icon>verified_user</mat-icon> Pago protegido con cifrado SSL.</small>
+    </aside>
+</div>
+}

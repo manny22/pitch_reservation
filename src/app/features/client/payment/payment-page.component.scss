@@ -1,0 +1,122 @@
+.page {
+    display: grid;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 16px;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 900px) {
+        grid-template-columns: 1.3fr 1fr;
+    }
+}
+
+.methods h1 {
+    margin: 0 0 4px;
+}
+
+.subtitle {
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0 0 16px;
+}
+
+.radio-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.method-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #d8e0e6;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+
+    &:hover {
+        border-color: #1b5e20;
+    }
+
+    small {
+        display: block;
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    mat-icon {
+        color: #1b5e20;
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.summary {
+    background: #f7f9fb;
+    border-radius: 12px;
+    padding: 20px;
+    height: fit-content;
+    position: sticky;
+    top: 80px;
+
+    h2 {
+        margin: 0 0 12px;
+        font-size: 1.1rem;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 12px;
+        display: grid;
+        gap: 8px;
+    }
+
+    li {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    li span {
+        color: rgba(0, 0, 0, 0.65);
+    }
+
+    .discount strong {
+        color: #1b5e20;
+    }
+
+    .total {
+        display: flex;
+        justify-content: space-between;
+        margin: 12px 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+    }
+
+    .pay-btn {
+        width: 100%;
+        height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .ssl {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: rgba(0, 0, 0, 0.6);
+        margin-top: 8px;
+        font-size: 0.85rem;
+    }
+
+    .ssl mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        color: #1b5e20;
+    }
+}

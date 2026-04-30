@@ -1,0 +1,83 @@
+.court-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .image {
+        height: 180px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        background-color: #eef2f5;
+    }
+
+    .badge {
+        position: absolute;
+        top: 12px;
+        padding: 4px 10px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 999px;
+        color: #fff;
+        backdrop-filter: blur(4px);
+    }
+
+    .badge.promo {
+        left: 12px;
+        background: #ff5722;
+    }
+
+    .badge.availability {
+        right: 12px;
+        background: #2e7d32;
+    }
+
+    .badge.availability.unavailable {
+        background: #757575;
+    }
+
+    h3 {
+        margin: 8px 0 4px;
+        font-size: 1.05rem;
+    }
+
+    .zone {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: rgba(0, 0, 0, 0.6);
+        margin: 0 0 8px;
+        font-size: 0.85rem;
+
+        mat-icon {
+            font-size: 16px;
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+
+    .price {
+        margin: 0;
+        font-weight: 700;
+        color: #1b5e20;
+
+        small {
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 400;
+        }
+    }
+}
