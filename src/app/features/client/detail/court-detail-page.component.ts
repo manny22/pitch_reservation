@@ -14,6 +14,7 @@ import { CurrencyCopPipe } from '../../../shared/pipes/currency-cop.pipe';
 import { RatingStarsComponent } from '../../../shared/components/rating-stars/rating-stars.component';
 import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
+import { CourtMapComponent } from '../../../shared/components/court-map/court-map.component';
 import { CourtFacade } from '../../../application/court/court.facade';
 import { ReviewFacade } from '../../../application/review/review.facade';
 import { PromotionFacade } from '../../../application/promotion/promotion.facade';
@@ -43,6 +44,7 @@ import { DatePipe } from '@angular/common';
         RatingStarsComponent,
         LoadingComponent,
         EmptyStateComponent,
+        CourtMapComponent,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './court-detail-page.component.html',

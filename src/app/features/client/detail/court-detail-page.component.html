@@ -64,10 +64,13 @@
         <h3>Política de cancelación</h3>
         <p class="policy">{{ c.cancellationPolicy }}</p>
 
-        <div class="map-placeholder" aria-label="Mapa de ubicación">
-            <mat-icon>map</mat-icon>
-            <span>Mapa interactivo (próximamente)</span>
-        </div>
+        <h3>Ubicación</h3>
+        <app-court-map [courts]="[c]" height="280px" />
+        <a mat-stroked-button color="primary" class="directions-btn"
+            [href]="'https://www.openstreetmap.org/?mlat=' + c.location.latitude + '&mlon=' + c.location.longitude + '#map=17/' + c.location.latitude + '/' + c.location.longitude"
+            target="_blank" rel="noopener noreferrer">
+            <mat-icon>directions</mat-icon> Cómo llegar
+        </a>
     </section>
 
     <aside class="cta-card">

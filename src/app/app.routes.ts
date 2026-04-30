@@ -23,6 +23,14 @@ export const routes: Routes = [
                 title: 'Buscar canchas · La Red',
             },
             {
+                path: 'mapa',
+                loadComponent: () =>
+                    import('./features/client/map/courts-map-page.component').then(
+                        (m) => m.CourtsMapPageComponent,
+                    ),
+                title: 'Mapa de canchas · La Red',
+            },
+            {
                 path: 'canchas/:id',
                 loadComponent: () =>
                     import('./features/client/detail/court-detail-page.component').then(

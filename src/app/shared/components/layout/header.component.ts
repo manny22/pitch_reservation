@@ -28,6 +28,7 @@ import { AuthService } from '../../../core/auth/auth.service';
       <nav class="links">
         <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
         <a mat-button routerLink="/canchas" routerLinkActive="active">Canchas</a>
+        <a mat-button routerLink="/mapa" routerLinkActive="active">Mapa</a>
         @if (isAdmin()) {
           <a mat-button routerLink="/admin" routerLinkActive="active">Panel</a>
         }
