@@ -129,7 +129,7 @@ export class CourtMapComponent implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     private startGeolocation(): void {
-        if (!('geolocation' in navigator)) {
+        if (!navigator.geolocation) {
             this.geolocationError.emit('unsupported');
             return;
         }
@@ -193,7 +193,7 @@ export class CourtMapComponent implements AfterViewInit, OnChanges, OnDestroy {
             return;
         }
         // Si aún no tenemos ubicación, pídela una vez
-        if (!('geolocation' in navigator)) {
+        if (!navigator.geolocation) {
             this.geolocationError.emit('unsupported');
             return;
         }

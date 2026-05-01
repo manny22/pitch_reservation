@@ -39,7 +39,7 @@ Repositorio: <https://github.com/manny22/pitch_reservation>
 | Formularios      | Reactive Forms                                   |
 | Routing          | Standalone Router con `loadComponent` lazy       |
 | Build            | `@angular/build` (esbuild)                       |
-| Testing          | Karma + Jasmine                                  |
+| Testing          | Jest + jest-preset-angular                       |
 
 ---
 
@@ -444,6 +444,8 @@ Sale en `dist/pitch_reservation/`.
 npm test
 ```
 
+Ver sección [Testing con Jest](#testing-con-jest) para más detalle.
+
 ---
 
 ## Scripts disponibles
@@ -453,7 +455,9 @@ npm test
 | `npm start`     | Dev server con HMR en `:4200`                |
 | `npm run build` | Build de producción optimizado               |
 | `npm run watch` | Build incremental para desarrollo            |
-| `npm test`      | Tests unitarios con Karma + Jasmine          |
+| `npm test`      | Ejecuta la suite con Jest                    |
+| `npm run test:watch` | Jest en modo watch                      |
+| `npm run test:coverage` | Reporte de cobertura en `coverage/`  |
 
 ### Usuarios mock para login
 
